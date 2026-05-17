@@ -1,59 +1,60 @@
-# Claude Voice Assistant — Browser Extension
+⚡ ORB — Claude AI, Directly In Your Browser
 
-A Siri-like Claude assistant that lives in every webpage as a floating orb.
-Press `\` (or your custom hotkey) and just talk.
+No new tabs. No switching apps. Just ask.
 
----
+ORB is an Opera GX browser extension built by Raijin Acquisitions that embeds the full power of Claude AI into your browsing experience. Ask complex questions, scrape live web data, solve problems — all without ever leaving the page you're on.
 
-## Install in Microsoft Edge
+What ORB Can Do
 
-1. Unzip this folder somewhere permanent (Desktop, Documents, etc.)
-2. Open Edge → go to `edge://extensions`
-3. Turn on **Developer mode** (toggle, top-left)
-4. Click **"Load unpacked"**
-5. Select the `claude-orb-extension` folder
-6. ✅ The gold **C** orb will appear on every webpage
+Answer anything — Complex math, research questions, coding help, writing — Claude's full reasoning capability at your fingertips
+Scrape & analyze live web data — Pull structured information from any page. Real examples:
 
----
+Scraped Zillow for distressed properties in active builder zones — returned a structured address list instantly
+Pulled breaking news from CNN and delivered a full breakdown without leaving the article
+Researched the 3 hottest AI startups with funding data and analysis — mid-scroll, no new tab
 
-## First-time Setup
 
-1. Click the **C** icon in your Edge toolbar (top-right)
-2. Paste your **Anthropic API key** (get one free at console.anthropic.com)
-3. Click **Save**
-4. Done — start talking
+Context-aware responses — ORB reads the page you're on and answers accordingly
+Voice activation (v1.1 — coming soon) — Say "Hey Claude" and ORB wakes up hands-free
 
----
 
-## How to Use
+Getting Started
+Requirements
 
-| Action | What happens |
-|---|---|
-| Press `\` on any page | Mic activates, Claude listens |
-| Speak your question | Transcribes and sends to Claude |
-| Claude responds | Reads response aloud + shows in panel |
-| Click the gold orb | Opens/closes the chat panel |
-| Press `Escape` | Stops listening or closes panel |
-| Type in the text box | Send without voice |
+Opera GX browser
+Your own Anthropic API key — free to get, you control your usage
 
----
+Installation
+Download ORB:
+👉 raijinacq.github.io/ORB
 
-## Settings (click the C toolbar icon)
+Download and unzip the ORB folder somewhere permanent
+Open Opera GX → go to opera://extensions
+Enable Developer Mode (top right toggle)
+Click Load Unpacked → select the ORB folder
+Click the ⚡ ORB icon in your toolbar
+Enter your Anthropic API key and click Save
+Start using Claude from anywhere in your browser
 
-- **API Key** — your Anthropic key, stored locally only
-- **Hotkey** — click the key display and press any key to change it (default: `\`)
-- **Voice input** — toggle mic on/off
-- **Text-to-speech** — toggle Claude's voice on/off
-- **Speech rate / pitch** — adjust how Claude sounds
-- **Read current page** — sends page text for context-aware answers
-- **Remember conversations** — keeps history between browser sessions
 
----
+How to Use
+ActionWhat happensClick the ⚡ orbOpens/closes the chat panelType your questionClaude answers in contextPress your hotkeyActivates voice input (v1.1)Say "Hey Claude"Wake word activation (v1.1)Press EscapeCloses panel
 
-## File Structure
+Settings
 
-```
-claude-orb-extension/
+API Key — Your Anthropic key, stored locally only
+Hotkey — Customize your activation key
+Voice Input — Toggle mic on/off
+Text-to-Speech — Toggle Claude's voice on/off
+Read Current Page — Sends page content for context-aware answers
+Remember Conversations — Keeps history between sessions
+
+
+Roadmap
+VersionStatusFeaturesv1.0✅ LiveAI chat, web scraping, page summarization, Q&Av1.1🔨 In DevelopmentVoice activation, "Hey Claude" wake wordv1.2📋 PlannedMemory & personalization, adapts to how you workv2.0🔭 FutureFull Opera GX integration — workspaces, tab management, GX Corner
+
+File Structure
+ORB/
 ├── manifest.json      Extension config + permissions
 ├── content.js         Floating orb injected on every page
 ├── orb.css            Orb + panel styles
@@ -61,25 +62,29 @@ claude-orb-extension/
 ├── popup.js           Settings logic
 ├── background.js      Service worker + hotkey forwarding
 └── icons/             Extension icons
-```
 
----
+Privacy
 
-## 🔮 Planned Features (leave room for these)
+API key stored locally in Opera GX storage only
+Page content sent to Anthropic API only when you send a message
+No third-party tracking, no ads, no data collection
 
-- Custom voice / persona selection (choose Microsoft Aria, Guy, etc.)
-- Right-click context menu → "Ask Claude about this"
-- Conversation history browser + export
-- Multi-tab awareness
-- Auto-summarize pages on load
-- Floating side panel mode (instead of popup)
-- Wake word support ("Hey Claude")
-- Screenshot / image analysis
 
----
+Support the Project
+ORB is built independently by Raijin Acquisitions. If you find it useful, consider supporting development:
+👉 Patreon — patreon.com/raijinaq
+Supporters get early access to new versions, roadmap voting rights, and behind-the-scenes development updates.
+Tiers:
 
-## Privacy
+⚡ Thunderclap — $3/month — Front row seat to development
+🌩️ Stormcaller — $8/month — Vote on what gets built next
+🔱 Raijin — $20/month — Co-builder status, direct line to the developer
 
-- API key stored locally in Edge storage only
-- Page content sent to Anthropic API only when you send a message
-- No third-party tracking, no ads, no data collection
+
+Contributing
+Issues, ideas, and PRs are welcome. ORB is early and growing fast — your input shapes what it becomes.
+
+License
+MIT — see LICENSE
+
+Built by Raijin Acquisitions ⚡
