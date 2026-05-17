@@ -100,7 +100,7 @@ ORB/
 
 ORB is built independently by Raijin Acquisitions. If you find it useful, consider supporting development:
 
-👉 [Patreon — patreon.com/raijinaq](https://www.patreon.com/raijinaq)
+👉 [Patreon — patreon.com/c/claudeorb](https://www.patreon.com/c/claudeorb)
 
 Supporters get early access to new versions, roadmap voting rights, and behind-the-scenes development updates.
 
