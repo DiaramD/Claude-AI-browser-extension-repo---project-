@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>ORB by RAIJIN Acquisitions</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #000000;
+      --surface: #07070e;
+      --surface2: #0f0f1a;
+      --border: #1a1a28;
+      --gold: #F5E642;
+      --gold2: #F5E642;
+      --blue: #4FC3F7;
+      --purple: #4FC3F7;
+      --text: #F0EDE8;
+      --muted: #7A7A8E;
+      --red: #F87171;
+      --green: #4ADE80;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      width: 340px;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      overflow: hidden;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      padding: 16px 16px 12px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .orb-mini {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--gold2));
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 17px;
+      color: var(--bg);
+      flex-shrink: 0;
+    }
+
+    .header-text { flex: 1; }
+    .header-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .header-sub {
+      font-size: 10px;
+      color: var(--muted);
+      margin-top: 2px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .status-pill {
+      padding: 3px 9px;
+      border-radius: 20px;
+      font-size: 10px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+    .status-pill.active {
+      border-color: rgba(74,222,128,0.4);
+      color: var(--green);
+      background: rgba(74,222,128,0.06);
+    }
+    .status-pill.no-key {
+      border-color: rgba(248,113,113,0.4);
+      color: var(--red);
+      background: rgba(248,113,113,0.06);
+    }
+
+    /* ── SECTIONS ── */
+    .section {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .section-label {
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 2px;
+    }
+
+    /* API Key */
+    .key-row {
+      display: flex;
+      gap: 7px;
+    }
+
+    input[type="password"], input[type="text"] {
+      flex: 1;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 10px;
+      color: var(--text);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.5px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    input:focus { border-color: rgba(245,230,66,0.4); }
+    input::placeholder { color: var(--muted); }
+
+    .save-btn {
+      padding: 7px 13px;
+      background: linear-gradient(135deg, var(--gold), var(--gold2));
+      color: var(--bg);
+      border: none;
+      border-radius: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .save-btn:hover { box-shadow: 0 2px 10px rgba(245,230,66,0.35); }
+
+    /* Hotkey input */
+    .hotkey-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hotkey-display {
+      min-width: 44px;
+      padding: 7px 10px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      text-align: center;
+      font-size: 16px;
+      color: var(--gold);
+      cursor: pointer;
+      transition: all 0.15s;
+      position: relative;
+    }
+    .hotkey-display.recording {
+      border-color: var(--gold);
+      animation: hotkey-blink 0.8s infinite;
+    }
+    @keyframes hotkey-blink {
+      0%, 100% { border-color: var(--gold); }
+      50% { border-color: transparent; }
+    }
+
+    .hotkey-hint { font-size: 10.5px; color: var(--muted); line-height: 1.5; }
+
+    /* Toggles */
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .toggle-info { flex: 1; }
+    .toggle-name { font-size: 11.5px; color: var(--text); }
+    .toggle-desc { font-size: 10px; color: var(--muted); margin-top: 2px; }
+
+    .toggle {
+      width: 36px; height: 19px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      position: relative;
+      cursor: pointer;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+    .toggle.on { background: rgba(245,230,66,0.1); border-color: var(--gold); }
+    .toggle::after {
+      content: '';
+      position: absolute;
+      top: 2px; left: 2px;
+      width: 13px; height: 13px;
+      border-radius: 50%;
+      background: var(--muted);
+      transition: all 0.2s;
+    }
+    .toggle.on::after { left: 19px; background: var(--gold); }
+
+    /* Voice rate */
+    .slider-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .slider-label { font-size: 10px; color: var(--muted); width: 70px; }
+    input[type="range"] {
+      flex: 1;
+      accent-color: var(--gold);
+      height: 4px;
+      cursor: pointer;
+    }
+    .slider-val { font-size: 11px; color: var(--gold); width: 28px; text-align: right; }
+
+    /* Activate btn */
+    .activate-btn {
+      margin: 14px 16px;
+      padding: 11px;
+      background: linear-gradient(135deg, var(--gold), var(--gold2));
+      color: var(--bg);
+      border: none;
+      border-radius: 10px;
+      font-family: 'Syne', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      width: calc(100% - 32px);
+      letter-spacing: 0.04em;
+      transition: all 0.15s;
+    }
+    .activate-btn:hover { box-shadow: 0 3px 16px rgba(245,230,66,0.4); transform: translateY(-1px); }
+
+    /* Footer */
+    .footer {
+      padding: 10px 16px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-link {
+      font-size: 10px;
+      color: var(--muted);
+      cursor: pointer;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .footer-link:hover { color: var(--text); }
+
+    .clear-link {
+      font-size: 10px;
+      color: rgba(248,113,113,0.6);
+      cursor: pointer;
+      transition: color 0.15s;
+    }
+    .clear-link:hover { color: var(--red); }
+
+    /* Future features section */
+    .future-section {
+      padding: 12px 16px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .future-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      opacity: 0.45;
+    }
+
+    .future-badge {
+      font-size: 9px;
+      padding: 1px 6px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      flex-shrink: 0;
+    }
+
+    .future-text { font-size: 10.5px; color: var(--muted); }
+
+    .saved-msg {
+      font-size: 10px;
+      color: var(--green);
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .saved-msg.show { opacity: 1; }
+
+    .key-hint {
+      font-size: 10px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .key-hint a { color: var(--muted); text-decoration: underline; }
+    .key-hint a:hover { color: var(--text); }
+
+    .optional-tag {
+      font-size: 8px;
+      padding: 1px 5px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      vertical-align: middle;
+      margin-left: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="orb-mini">O</div>
+    <div class="header-text">
+      <div class="header-name">ORB</div>
+      <div class="header-sub">by RAIJIN Acquisitions</div>
+    </div>
+    <div class="status-pill no-key" id="statusPill">No key</div>
+  </div>
+
+  <!-- ACTIVATE -->
+  <button class="activate-btn" id="activateBtn">◎ &nbsp;Open Assistant</button>
+
+  <!-- API KEY -->
+  <div class="section">
+    <div class="section-label">Anthropic API Key</div>
+    <div class="key-row">
+      <input type="password" id="apiKeyInput" placeholder="sk-ant-…" />
+      <button class="save-btn" id="saveKeyBtn">Save</button>
+    </div>
+    <div class="saved-msg" id="savedMsg">✓ Saved</div>
+  </div>
+
+  <!-- BRAVE SEARCH API KEY -->
+  <div class="section">
+    <div class="section-label">Brave Search API Key <span class="optional-tag">optional</span></div>
+    <div class="key-row">
+      <input type="password" id="braveKeyInput" placeholder="BSA…" />
+      <button class="save-btn" id="saveBraveKeyBtn">Save</button>
+    </div>
+    <div class="key-hint">
+      Enables richer web search results.<br>
+      Free tier at <a href="https://api.search.brave.com" target="_blank">api.search.brave.com</a> — without it, DuckDuckGo is used.
+    </div>
+    <div class="saved-msg" id="braveKeyMsg">✓ Saved</div>
+  </div>
+
+  <!-- HOTKEY (hidden in v1) -->
+  <div class="section" style="display:none">
+    <div class="section-label">Voice Hotkey</div>
+    <div class="hotkey-row">
+      <div class="hotkey-display" id="hotkeyDisplay" title="Click to change">
+        \
+      </div>
+      <div class="hotkey-hint">
+        Click the key to change it.<br>
+        Then press any key to set it as the new hotkey.
+      </div>
+    </div>
+  </div>
+
+  <!-- VOICE SETTINGS (hidden in v1) -->
+  <div class="section" style="display:none">
+    <div class="section-label">Voice Settings</div>
+
+    <div class="toggle-row">
+      <div class="toggle-info">
+        <div class="toggle-name">"Hey ORB" wake word</div>
+        <div class="toggle-desc">Say "Hey ORB" to activate hands-free</div>
+      </div>
+      <div class="toggle on" id="toggleWake"></div>
+    </div>
+
+    <div class="toggle-row">
+      <div class="toggle-info">
+        <div class="toggle-name">Voice input</div>
+        <div class="toggle-desc">Speak to ORB with your mic</div>
+      </div>
+      <div class="toggle on" id="toggleVoice"></div>
+    </div>
+
+    <div class="toggle-row">
+      <div class="toggle-info">
+        <div class="toggle-name">Text-to-speech</div>
+        <div class="toggle-desc">ORB reads responses aloud</div>
+      </div>
+      <div class="toggle" id="toggleTTS"></div>
+    </div>
+
+    <div class="slider-row">
+      <div class="slider-label">Speech rate</div>
+      <input type="range" id="ttsRate" min="0.5" max="2" step="0.1" value="1.0" />
+      <div class="slider-val" id="ttsRateVal">1.0</div>
+    </div>
+
+    <div class="slider-row">
+      <div class="slider-label">Pitch</div>
+      <input type="range" id="ttsPitch" min="0.5" max="2" step="0.1" value="1.0" />
+      <div class="slider-val" id="ttsPitchVal">1.0</div>
+    </div>
+  </div>
+
+  <!-- Voice v1.1 note -->
+  <div style="padding:8px 16px 12px; font-size:10px; color:#7A7A8E; text-align:center; border-bottom:1px solid #2A2A36;">Voice features coming in v1.1</div>
+
+  <!-- BEHAVIOR -->
+  <div class="section">
+    <div class="section-label">Behavior</div>
+
+    <div class="toggle-row">
+      <div class="toggle-info">
+        <div class="toggle-name">Read current page</div>
+        <div class="toggle-desc">Send page content to ORB</div>
+      </div>
+      <div class="toggle on" id="togglePage"></div>
+    </div>
+
+    <div class="toggle-row">
+      <div class="toggle-info">
+        <div class="toggle-name">Remember conversations</div>
+        <div class="toggle-desc">Keep history between sessions</div>
+      </div>
+      <div class="toggle on" id="toggleMemory"></div>
+    </div>
+  </div>
+
+  <!-- COMING SOON -->
+  <div class="future-section">
+    <div class="section-label" style="opacity:0.5; margin-bottom:2px;">🔮 Coming Soon</div>
+    <div class="future-item">
+      <div class="future-badge">soon</div>
+      <div class="future-text">Custom voice / persona selection</div>
+    </div>
+    <div class="future-item">
+      <div class="future-badge">soon</div>
+      <div class="future-text">Right-click "Ask ORB" on any text</div>
+    </div>
+    <div class="future-item">
+      <div class="future-badge">soon</div>
+      <div class="future-text">Conversation export &amp; history browser</div>
+    </div>
+    <div class="future-item">
+      <div class="future-badge">soon</div>
+      <div class="future-text">Multi-tab context awareness</div>
+    </div>
+    <div class="future-item">
+      <div class="future-badge">soon</div>
+      <div class="future-text">Auto-summarize on page load</div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <a class="footer-link" href="https://console.anthropic.com" target="_blank">Get API key ↗</a>
+    <span class="clear-link" id="clearHistBtn">Clear history</span>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
