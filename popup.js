@@ -235,7 +235,6 @@ activateBtn?.addEventListener('click', () => {
 clearHistBtn?.addEventListener('click', () => {
   if (!confirm('Clear all conversation history?')) return;
   chrome.storage.local.remove(['claudeOrbHistory'], () => {
-    flash({ classList: { add: () => {}, remove: () => {} }, textContent: '' }, '', '');
     clearHistBtn.textContent = 'Cleared ✓';
     setTimeout(() => { clearHistBtn.textContent = 'Clear history'; }, 2000);
   });

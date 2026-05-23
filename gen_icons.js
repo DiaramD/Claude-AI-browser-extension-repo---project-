@@ -1,7 +1,7 @@
 /**
  * RAIJIN icon generator — Node.js only, no npm packages.
  * Outputs icon16.png, icon48.png, icon128.png into ./icons/
- * Pure black background + electric yellow lightning bolt + blue/yellow glow.
+ * Pure black background + electric blue lightning bolt + blue glow.
  * 4× supersampling for crisp edges.
  */
 'use strict';
@@ -182,14 +182,14 @@ function generateIcon(targetSize) {
 
   // Blue outer glow
   addGlow(79, 195, 247, 80, Math.round(S * 0.10));
-  // Yellow wide glow
-  addGlow(245, 230, 66, 110, Math.round(S * 0.055));
-  // Yellow tight halo
-  addGlow(245, 230, 66, 175, Math.round(S * 0.024));
+  // Blue wide glow
+  addGlow(79, 195, 247, 110, Math.round(S * 0.055));
+  // Blue tight halo
+  addGlow(79, 195, 247, 175, Math.round(S * 0.024));
 
-  // Sharp yellow bolt on top
+  // Sharp blue bolt on top
   const sharp = new Uint8Array(px * 4);
-  fillPolygon(sharp, S, S, bolt, 245, 230, 66, 255);
+  fillPolygon(sharp, S, S, bolt, 79, 195, 247, 255);
   composite(base, sharp, px);
 
   const { pixels, w, h } = downsample(base, S, S, SCALE);
